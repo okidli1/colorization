@@ -1,8 +1,8 @@
-
 import argparse
 import matplotlib.pyplot as plt
 
 from colorizers import *
+from colorizers.custom_colorizer import eccv16_custom
 
 parser = argparse.ArgumentParser()
 parser.add_argument('-i','--img_path', type=str, default='imgs/ansel_adams3.jpg')
@@ -11,7 +11,7 @@ parser.add_argument('-o','--save_prefix', type=str, default='saved', help='will 
 opt = parser.parse_args()
 
 # load colorizers
-colorizer_eccv16 = eccv16(pretrained=True).eval()
+colorizer_eccv16 = eccv16_custom(pretrained=False, weights_path="eccv16_myweights.pth").eval()
 colorizer_siggraph17 = siggraph17(pretrained=True).eval()
 if(opt.use_gpu):
 	colorizer_eccv16.cuda()
