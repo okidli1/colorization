@@ -91,7 +91,12 @@ if opt.use_gpu:
 img_bw = postprocess_tens(tens_l_orig, torch.cat((0*tens_l_orig,0*tens_l_orig),dim=1))
 
 with torch.no_grad():
-    out_img_eccv16_custom = postprocess_tens(tens_l_orig, colorizer_eccv16_custom(tens_l_rs).cpu())
+    out_ab = colorizer_eccv16_custom(tens_l_rs).cpu()
+    # amplify for random init
+    if hasattr(colorizer_eccv16_custom, "random_scale"):
+        out_ab = out_ab * colorizer_eccv16_custom.output_scale
+    out_img_eccv16_custom = postprocess_tens(tens_l_orig, out_ab)
+
     out_img_siggraph17 = postprocess_tens(tens_l_orig, colorizer_siggraph17(tens_l_rs).cpu())
 
 plt.imsave('%s_eccv16_custom.png' % opt.save_prefix, out_img_eccv16_custom)

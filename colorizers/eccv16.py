@@ -93,7 +93,8 @@ class ECCVGenerator(BaseColor):
         conv6_3 = self.model6(conv5_3)
         conv7_3 = self.model7(conv6_3)
         conv8_3 = self.model8(conv7_3)
-        out_reg = self.model_out(self.softmax(conv8_3))
+        # ----- FIX: remove softmax -----
+        out_reg = self.model_out(conv8_3)
 
         return self.unnormalize_ab(self.upsample4(out_reg))
 
