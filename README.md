@@ -1,0 +1,1 @@
+Running the model should be easy. I have provided weights for the model we used in the report, and there is code to skip training if weights are already saved. In the bottom cell, you should be able to enter the path of any black and white image in order to colourize it. I have provided some of the tests we used in case you would like to recreate them.
